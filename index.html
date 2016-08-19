@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hangman</title>
+</head>
+<body>
+
+<div id="Hangman">
+	<p></p>
+</div>
+
+<script type="text/javascript">
+
+// Create an array that lists out all of the options
+var wordToBeGuessed = [];
+var missedLetters = [];
+var userGuess;
+var wins = 0;
+var losses = 0;
+
+var gameWords = ['rock','paper','scissors'];
+var	randomWord = gameWords[Math.floor(Math.random()*gameWords.length)];
+
+for (var i = 0; i < randomWord.length; i++) {
+	wordToBeGuessed[i] = "_";
+	console.log(wordToBeGuessed);
+}
+
+
+// Captures Key Clicks
+document.onkeyup = function(event) {
+
+	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+	for (var i = 0; i < randomWord.length; i++) {
+			// wordToBeGuessed[i] = randomWord.charAt(i);
+		if (userGuess == randomWord.charAt(i)) {
+			wordToBeGuessed[i] = userGuess;
+
+			console.log("b: " + userGuess);
+			console.log(wordToBeGuessed);
+		}
+	}
+console.log("a: " + userGuess);
+
+var html = "<p>Welcome to Hangman where a correct guess will save a life...<br> Lets Play</p>" +
+"<p>wins: " + wins + "</p>" +
+"<p>losses: " + losses + "</p>" +
+"<p>" + wordToBeGuessed + "</p>";
+
+
+document.querySelector('#Hangman').innerHTML = html;
+}
+
+
+	console.log(wordToBeGuessed);
+	console.log(userGuess);
+
+</script>
+</body>
+</html>
