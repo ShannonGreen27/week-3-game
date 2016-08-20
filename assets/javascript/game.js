@@ -10,6 +10,11 @@ function newGame() {
 	randomWord = gameWords[Math.floor(Math.random()*gameWords.length)];
 	wordToBeGuessed = [];
 	wrongGuess = [];
+
+	for (var i = 0; i < randomWord.length; i++) {
+		wordToBeGuessed[i] = "_";
+	}
+	htmlDisplay();
 }
 
 var wordToBeGuessed = [];
@@ -25,57 +30,62 @@ var guessesRemaining = 8;
 var resetKeyCode;
 
 for (var i = 0; i < randomWord.length; i++) {
-	wordToBeGuessed[i] = "_";
+wordToBeGuessed[i] = "_";
 }
 
-if (isGameRunning) {
 
-		document.onkeyup = function(event) {
+
+document.onkeyup = function(event) {
+	if (isGameRunning) {
 
 		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
-			if (wrongGuess.indexOf(userGuess) == -1) {
+		if (wrongGuess.indexOf(userGuess) == -1) {
 
-				for (var i = 0; i < randomWord.length; i++) {
-					if (userGuess == randomWord.charAt(i)) {
-					wordToBeGuessed[i] = userGuess;
-					}
+			for (var i = 0; i < randomWord.length; i++) {
+				if (userGuess == randomWord.charAt(i)) {
+				wordToBeGuessed[i] = userGuess;
+				}
 
-				} 
-			}
+			} 
+		}
 
-			if (wordToBeGuessed.indexOf(userGuess) == -1 && wrongGuess.indexOf(userGuess) == -1){
-				wrongGuess.push(userGuess);
-				guessesRemaining--;
-			}
+		if (wordToBeGuessed.indexOf(userGuess) == -1 && wrongGuess.indexOf(userGuess) == -1){
+			wrongGuess.push(userGuess);
+			guessesRemaining--;
+		}
 
-			var html = "<h1>Welcome to Hangman<br> Lets Play</h1>" +
-			"<p>" + wordToBeGuessed + "</p>" +
-			"<p>Guesses remaining: " + guessesRemaining + "</p>" +
-			"<p>Letters guessed: " + wrongGuess + "</p>" +
-			"<p>Wins: " + wins + "</p>" +
-			"<p>Losses: " + losses + "</p>";
-
-
-			document.querySelector('#Hangman').innerHTML = html;
+		htmlDisplay();		
 
 		if (wordToBeGuessed.indexOf("_") == -1) {
 			playAudio();
-			console.log("YOU WIN");
+			alert("YOU WIN");
 			wins++;
 			isGameRunning = false;
 		}
-		else if (guessesRemaining == 0) {
-			console.log("SORRY, YOU HAVE NO MORE GUESSES");
+
+		if (guessesRemaining == 0) {
+			alert("SORRY, YOU HAVE NO MORE GUESSES");
 			losses++;
 			isGameRunning = false;
 		} 
 
+	} else {
+		if (event.keyCode == "13") {
+			newGame();
+			alert("Preparing a new game");
 		}
+	}
 }
 
-else {
-	document.onkeyup = function(event.keyCode = "13") {
-	newGame();
-	}
+function htmlDisplay() {
+	var html = "<h1>Welcome to Hangman<br> Lets Play</h1>" +
+		"<p>" + wordToBeGuessed + "</p>" +
+		"<p>Guesses remaining: " + guessesRemaining + "</p>" +
+		"<p>Letters guessed: " + wrongGuess + "</p>" +
+		"<p>Wins: " + wins + "</p>" +
+		"<p>Losses: " + losses + "</p>";
+
+
+		document.querySelector('#Hangman').innerHTML = html;
 }
