@@ -13,13 +13,13 @@
 
 // Create an array that lists out all of the options
 var wordToBeGuessed = [];
-var missedLetters = [];
+var wrongGuess = [];
 var userGuess;
-var wins = 0;
-var losses = 0;
-
 var gameWords = ['rock','paper','scissors'];
 var	randomWord = gameWords[Math.floor(Math.random()*gameWords.length)];
+
+var wins = 0;
+var losses = 0;
 
 for (var i = 0; i < randomWord.length; i++) {
 	wordToBeGuessed[i] = "_";
@@ -32,29 +32,41 @@ document.onkeyup = function(event) {
 
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
-	for (var i = 0; i < randomWord.length; i++) {
-			// wordToBeGuessed[i] = randomWord.charAt(i);
-		if (userGuess == randomWord.charAt(i)) {
-			wordToBeGuessed[i] = userGuess;
+	if (wrongGuess.indexOf(userGuess) == -1) {
 
-			console.log("b: " + userGuess);
-			console.log(wordToBeGuessed);
-		}
+		for (var i = 0; i < randomWord.length; i++) {
+			if (userGuess == randomWord.charAt(i)) {
+			wordToBeGuessed[i] = userGuess;
+			}
+
+		} 
 	}
+
+	if (wordToBeGuessed.indexOf(userGuess) == -1 && wrongGuess.indexOf(userGuess) == -1){
+		wrongGuess.push(userGuess);
+	}
+	
+		// else if (wrongGuess.indexOf(userGuess) == -1){
+		// 	if (wordToBeGuessed.indexOf(userGuess)) {
+		// 		wrongGuess.push(userGuess);
+		// 	}
+		// 	// console.log(wordToBeGuessed.indexOf(userGuess));
+		// }
+	// }
+	console.log(randomWord.indexOf(userGuess));
+
+
 console.log("a: " + userGuess);
 
-var html = "<p>Welcome to Hangman where a correct guess will save a life...<br> Lets Play</p>" +
+var html = "<p>Welcome to Hangman<br> Lets Play</p>" +
 "<p>wins: " + wins + "</p>" +
 "<p>losses: " + losses + "</p>" +
-"<p>" + wordToBeGuessed + "</p>";
+"<p>" + wordToBeGuessed + "</p>" +
+"<p>" + wrongGuess + "</p>";
 
 
 document.querySelector('#Hangman').innerHTML = html;
 }
-
-
-	console.log(wordToBeGuessed);
-	console.log(userGuess);
 
 </script>
 </body>
