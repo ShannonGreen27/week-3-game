@@ -6,67 +6,16 @@
 <body>
 
 <div id="Hangman">
-	<p></p>
+	<h1>Welcome to Hangman<br> Lets Play</h1>
+	<p>Press Enter to Begin</p>
+	<p>Guesses remaining:</p>
+	<p>Letters guessed:</p>
 </div>
-
-<script type="text/javascript">
-
-// Create an array that lists out all of the options
-var wordToBeGuessed = [];
-var wrongGuess = [];
-var userGuess;
-var gameWords = ['rock','paper','scissors'];
-var	randomWord = gameWords[Math.floor(Math.random()*gameWords.length)];
-
-var wins = 0;
-var losses = 0;
-
-for (var i = 0; i < randomWord.length; i++) {
-	wordToBeGuessed[i] = "_";
-	console.log(wordToBeGuessed);
-}
+<audio id="winSound" preload="none" src="https://s3.amazonaws.com/hark-audio/6038c457-b03f-405e-ba02-f74055f27367.mp3" type="audio/mp3"></audio>
 
 
-// Captures Key Clicks
-document.onkeyup = function(event) {
 
-	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-
-	if (wrongGuess.indexOf(userGuess) == -1) {
-
-		for (var i = 0; i < randomWord.length; i++) {
-			if (userGuess == randomWord.charAt(i)) {
-			wordToBeGuessed[i] = userGuess;
-			}
-
-		} 
-	}
-
-	if (wordToBeGuessed.indexOf(userGuess) == -1 && wrongGuess.indexOf(userGuess) == -1){
-		wrongGuess.push(userGuess);
-	}
-	
-		// else if (wrongGuess.indexOf(userGuess) == -1){
-		// 	if (wordToBeGuessed.indexOf(userGuess)) {
-		// 		wrongGuess.push(userGuess);
-		// 	}
-		// 	// console.log(wordToBeGuessed.indexOf(userGuess));
-		// }
-	// }
-	console.log(randomWord.indexOf(userGuess));
-
-
-console.log("a: " + userGuess);
-
-var html = "<p>Welcome to Hangman<br> Lets Play</p>" +
-"<p>wins: " + wins + "</p>" +
-"<p>losses: " + losses + "</p>" +
-"<p>" + wordToBeGuessed + "</p>" +
-"<p>" + wrongGuess + "</p>";
-
-
-document.querySelector('#Hangman').innerHTML = html;
-}
+<script type="text/javascript" src="assets/javascript/game.js">
 
 </script>
 </body>
