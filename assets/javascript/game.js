@@ -15,6 +15,8 @@ function newGame() {
 		wordToBeGuessed[i] = "_";
 	}
 	htmlDisplay();
+	htmlDisplay2();
+	htmlDisplay3();
 }
 
 var wordToBeGuessed = [];
@@ -55,17 +57,19 @@ document.onkeyup = function(event) {
 			guessesRemaining--;
 		}
 
-		htmlDisplay();		
+		htmlDisplay();
+		htmlDisplay2();
+		htmlDisplay3();		
 
 		if (wordToBeGuessed.indexOf("_") == -1) {
 			playAudio();
-			alert("YOU WIN");
+			alert("YOU WIN. PRESS ENTER TO LOAD A NEW GAME");
 			wins++;
 			isGameRunning = false;
 		}
 
 		if (guessesRemaining == 0) {
-			alert("SORRY, YOU HAVE NO MORE GUESSES");
+			alert("YOU LOST. PRESS ENTER TO LOAD A NEW GAME");
 			losses++;
 			isGameRunning = false;
 		} 
@@ -82,10 +86,25 @@ function htmlDisplay() {
 	var html = "<h1>Welcome to Hangman<br> Lets Play</h1>" +
 		"<p>" + wordToBeGuessed + "</p>" +
 		"<p>Guesses remaining: " + guessesRemaining + "</p>" +
-		"<p>Letters guessed: " + wrongGuess + "</p>" +
-		"<p>Wins: " + wins + "</p>" +
-		"<p>Losses: " + losses + "</p>";
+		"<p>Letters guessed: " + wrongGuess + "</p>";
 
 
 		document.querySelector('#Hangman').innerHTML = html;
+
+}
+
+function htmlDisplay2() {
+	var html2 = "<p>Wins: " + wins + "</p>";
+
+
+		document.querySelector('#Hangmanphead').innerHTML = html2;
+		
+}
+
+function htmlDisplay3() {
+	var html3 = "<p>Losses: " + losses + "</p>";
+
+
+		document.querySelector('#Hangmanpbody').innerHTML = html3;
+		
 }
